@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="
+ 		http://www.springframework.org/schema/beans
+ 		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+ 		http://www.springframework.org/schema/util
+ 		http://www.springframework.org/schema/util/spring-util-3.2.xsd">
+
+
+        <util:properties id="properties" location="classpath:properties.properties"/>
+        <import resource="discount.xml"/>
+
+        <bean id="smallAuditorium" class="ua.epam.spring.hometask.domain.Auditorium">
+            <property name="name" value="#{properties['smallGroup.name']}"/>
+            <property name="numberOfSeats" value="#{properties['smallGroup.number']}"/>
+            <property name="vipSeats" value="#{properties['smallGroup.vip.seats'].split(',')}"/>
+        </bean>
+
+        <bean id="middleAuditorium" class="ua.epam.spring.hometask.domain.Auditorium">
+            <property name="name" value="#{properties['middleGroup.name']}"/>
+            <property name="numberOfSeats" value="#{properties['middleGroup.number']}"/>
+            <property name="vipSeats" value="#{properties['middleGroup.vip.seats'].split(',')}"/>
+        </bean>
+
+        <bean id="bigAuditorium" class="ua.epam.spring.hometask.domain.Auditorium">
+            <property name="name" value="#{properties['bigGroup.name']}"/>
+            <property name="numberOfSeats" value="#{properties['bigGroup.number']}"/>
+            <property name="vipSeats" value="#{properties['bigGroup.vip.seats'].split(',')}"/>
+        </bean>
+
+        <util:set id="auditoriums">
+            <ref bean = "smallAuditorium"/>
+            <ref bean = "middleAuditorium"/>
+            <ref bean = "bigAuditorium"/>
+        </util:set>
+
+        <bean id="userDao" class="ua.epam.spring.hometask.dao.impl.UserDaoImplimentation"/>
+        <bean id="eventDao" class="ua.epam.spring.hometask.dao.impl.EventDaoImpl"/>
+        <bean id="ticketDao" class="ua.epam.spring.hometask.dao.impl.TicketDaoImplimentation"/>
+        <bean id="auditoriumDao" class="ua.epam.spring.hometask.dao.impl.AuditoriumDaoImplementation">
+            <constructor-arg ref="auditoriums"/>
+        </bean>
+
+        <bean id="userService" class="ua.epam.spring.hometask.service.impl.UserServiceImpl">
+            <constructor-arg>
+                <ref bean="userDao"/>
+            </constructor-arg>
+        </bean>
+
+        <bean id="eventService" class="ua.epam.spring.hometask.service.impl.EventServiceImpl">
+            <constructor-arg>
+                <ref bean="eventDao"/>
+            </constructor-arg>
+        </bean>
+
+        <bean id="auditoriumService" class="ua.epam.spring.hometask.service.impl.AuditoriumServiceImpl">
+            <constructor-arg>
+                <ref bean="auditoriumDao"/>
+            </constructor-arg>
+        </bean>
+
+        <bean id="bookingService" class="ua.epam.spring.hometask.service.impl.BookingServiceImpl">
+            <constructor-arg>
+                <ref bean="userDao"/>
+            </constructor-arg>
+            <constructor-arg>
+                <ref bean="ticketDao"/>
+            </constructor-arg>
+            <constructor-arg index="2" value="#{properties['koefVip']}"/>
+            <constructor-arg index="3" value="#{properties['koefRaiting']}"/>
+        </bean>
+
+
+</beans>

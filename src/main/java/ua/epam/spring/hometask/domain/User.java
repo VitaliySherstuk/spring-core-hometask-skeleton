@@ -4,9 +4,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.time.LocalDate;
-import java.util.NavigableSet;
-import java.util.Objects;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * @author Yuriy_Tkach
@@ -22,6 +20,8 @@ public class User extends DomainObject {
     private LocalDate birthday;
 
     private NavigableSet<Ticket> tickets = new TreeSet<>();
+
+    private Set<Ticket> luckyTickets = new HashSet<>();
 
     public String getFirstName() {
         return firstName;
@@ -64,6 +64,8 @@ public class User extends DomainObject {
     public NavigableSet<Ticket> getTickets() {
         return tickets;
     }
+
+    public Set<Ticket> getLuckyTickets() {return luckyTickets;}
 
     public User setTickets(NavigableSet<Ticket> tickets) {
         this.tickets = tickets;

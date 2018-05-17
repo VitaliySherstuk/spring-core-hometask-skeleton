@@ -3,27 +3,31 @@ package ua.epam.spring.hometask.service;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import ua.epam.spring.hometask.AppConfig;
 import ua.epam.spring.hometask.domain.Event;
 import ua.epam.spring.hometask.service.impl.EventServiceImpl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("/spring.xml")
-public class EventServiceImplTest extends AbstractJUnit4SpringContextTests {
+@ContextConfiguration(classes = AppConfig.class)
+public class EventServiceImplTest {
 
     private Event eventConcert;
     private Event eventCinema;
+    @Autowired
     private EventServiceImpl eventService;
     private long idCinema = 20l;
+
 
     @Before
     public void setUp() throws Exception {
 
-        eventService = (EventServiceImpl) applicationContext.getBean("eventService");
+        //eventService = (EventServiceImpl) applicationContext.getBean("eventService");
         eventConcert = new Event().setName("Concert");
         eventCinema = new Event().setName("Cinema");
         eventCinema.setId(idCinema);
@@ -63,4 +67,5 @@ public class EventServiceImplTest extends AbstractJUnit4SpringContextTests {
     public void getAll() {
         assertNotNull(eventService.getAll());
     }
+
 }

@@ -3,22 +3,24 @@ package ua.epam.spring.hometask.service;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import ua.epam.spring.hometask.dao.UserDao;
-import ua.epam.spring.hometask.dao.impl.UserDaoImplimentation;
+import ua.epam.spring.hometask.AppConfig;
 import ua.epam.spring.hometask.domain.User;
 
 import java.time.LocalDate;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("/spring.xml")
+@ContextConfiguration(classes = AppConfig.class)
 public class UserServiceImplTest extends AbstractJUnit4SpringContextTests {
 
+    @Autowired
     private UserService userService;
     private User user;
 
@@ -26,7 +28,7 @@ public class UserServiceImplTest extends AbstractJUnit4SpringContextTests {
     @Before
     public void setUp() throws Exception {
 
-        userService = (UserService) applicationContext.getBean("userService");
+        //userService = (UserService) applicationContext.getBean("userService");
         user = new User().setFirstName("Peter").setLastName("Ivanov")
                 .setBirthday(LocalDate.of(2000, 11, 15))
                 .setEmail("Peter_Ivanov.epan.com");

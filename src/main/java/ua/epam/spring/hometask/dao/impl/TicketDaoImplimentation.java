@@ -1,5 +1,6 @@
 package ua.epam.spring.hometask.dao.impl;
 
+import org.springframework.stereotype.Component;
 import ua.epam.spring.hometask.dao.TicketDao;
 import ua.epam.spring.hometask.domain.Ticket;
 
@@ -8,7 +9,9 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+@Component
 public class TicketDaoImplimentation implements TicketDao {
+
 
     private static Set<Ticket> tickets = new HashSet<>();
 

@@ -1,17 +1,20 @@
 package ua.epam.spring.hometask.dao.impl;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 import ua.epam.spring.hometask.dao.AuditoriumDao;
 import ua.epam.spring.hometask.domain.Auditorium;
+import javax.annotation.Resource;
 import java.util.Collection;
 import java.util.Set;
 
+@Component
 public class AuditoriumDaoImplementation implements AuditoriumDao {
 
-    private static Set<Auditorium> auditoriums;
+    @Resource
+    @Qualifier("auditoriums")
+    private Set<Auditorium> auditoriums;
 
-    public AuditoriumDaoImplementation(Set<Auditorium> auditoriums) {
-        this.auditoriums = auditoriums;
-    }
 
     @Override
     public Auditorium getByName(String name) {

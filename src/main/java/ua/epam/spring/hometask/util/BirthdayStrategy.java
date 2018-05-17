@@ -2,14 +2,14 @@ package ua.epam.spring.hometask.util;
 
 import ua.epam.spring.hometask.domain.Event;
 import ua.epam.spring.hometask.domain.User;
-import ua.epam.spring.hometask.service.DiscountService;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.time.LocalDateTime;
 import java.time.MonthDay;
 
-public class BirthdayStrategy implements DiscountService {
+
+public class BirthdayStrategy implements DiscountStrategy {
 
 
     private byte birthdayDiscount;

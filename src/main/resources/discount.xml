@@ -2,8 +2,6 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:util="http://www.springframework.org/schema/util"
-       xmlns:p="http://www.springframework.org/schema/p"
-       xmlns:c="http://www.springframework.org/schema/c"
        xsi:schemaLocation="
  		http://www.springframework.org/schema/beans
  		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
@@ -13,7 +11,7 @@
 
         <util:properties id="properties" location="classpath:properties.properties"/>
 
-        <bean id="discountStrategy" class="ua.epam.spring.hometask.util.DiscountStrategy">
+        <bean id="discountStrategy" class="ua.epam.spring.hometask.util.GeneralDiscountStrategy">
             <constructor-arg index="0" value="#{properties['amountTicketDiscount']}"/>
             <constructor-arg index="1" value="#{properties['numberTicketDiscount']}"/>
         </bean>

@@ -3,27 +3,34 @@ package ua.epam.spring.hometask.service;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import ua.epam.spring.hometask.AppConfig;
 import ua.epam.spring.hometask.dao.TicketDao;
 import ua.epam.spring.hometask.domain.*;
-import ua.epam.spring.hometask.service.impl.BookingServiceImpl;
 
+import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("/spring.xml")
+@ContextConfiguration(classes = AppConfig.class)
 public class BookingServiceImplTest extends AbstractJUnit4SpringContextTests {
 
-    private BookingServiceImpl bookingServiceImpl;
+    @Autowired
+    private BookingService bookingServiceImpl;
     private Event event;
+
+    @Resource
+    @Qualifier("getMiddleAuditorium")
     private Auditorium auditorium;
+    @Autowired
     private TicketDao ticketDao;
     private double regularPrice = 100;
     private LocalDateTime dateTime;
@@ -34,9 +41,6 @@ public class BookingServiceImplTest extends AbstractJUnit4SpringContextTests {
     @Before
     public void setUp() throws Exception {
 
-        bookingServiceImpl = (BookingServiceImpl) applicationContext.getBean("bookingService");
-        auditorium = (Auditorium) applicationContext.getBean("middleAuditorium");
-        ticketDao = (TicketDao) applicationContext.getBean("ticketDao");
 
         event = new Event().setName("Exhibition");
         event.setBasePrice(regularPrice);
@@ -67,6 +71,7 @@ public class BookingServiceImplTest extends AbstractJUnit4SpringContextTests {
 
         Set<Ticket> tickets = new HashSet<>();
         tickets.add(ticketFirst);
+        ticketDao.getAll().clear();
         bookingServiceImpl.bookTickets(tickets);
         assertTrue(ticketDao.getAll().size()==1);
     }
@@ -77,6 +82,7 @@ public class BookingServiceImplTest extends AbstractJUnit4SpringContextTests {
         Set<Ticket> tickets = new HashSet<>();
         tickets.add(ticketSecond);
         tickets.add(ticketThird);
+        ticketDao.getAll().clear();
         bookingServiceImpl.bookTickets(tickets);
         Set<Ticket> purchasedTickets = bookingServiceImpl.getPurchasedTicketsForEvent(event, dateTime);
         assertTrue(purchasedTickets.size() == 2);

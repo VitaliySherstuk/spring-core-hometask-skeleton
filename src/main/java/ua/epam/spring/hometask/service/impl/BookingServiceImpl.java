@@ -1,5 +1,8 @@
 package ua.epam.spring.hometask.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 import ua.epam.spring.hometask.dao.TicketDao;
 import ua.epam.spring.hometask.dao.UserDao;
 import ua.epam.spring.hometask.domain.*;
@@ -7,24 +10,34 @@ import ua.epam.spring.hometask.service.BookingService;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@Service
 public class BookingServiceImpl implements BookingService{
 
+    @Autowired
     private UserDao userDao;
+    @Autowired
     private TicketDao ticketDao;
+
+    @Resource
+    @Qualifier("koefVipValue")
     private double koefVip;
+
+    @Resource
+    @Qualifier("koefRaitingValue")
     private double koefRaiting;
 
-    public BookingServiceImpl(UserDao userDao, TicketDao ticketDao, double koefVip, double koefRaiting)
+   /* public BookingServiceImpl(UserDao userDao, TicketDao ticketDao, double koefVip, double koefRaiting)
     {
         this.userDao = userDao;
         this.ticketDao = ticketDao;
         this.koefVip = koefVip;
         this.koefRaiting = koefRaiting;
-    }
+    }*/
 
     @Override
     public double getTicketsPrice(@Nonnull Event event, @Nonnull LocalDateTime dateTime, @Nullable User user, @Nonnull Set<Long> seats) {

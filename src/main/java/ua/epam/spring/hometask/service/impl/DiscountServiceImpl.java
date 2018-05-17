@@ -1,30 +1,39 @@
 package ua.epam.spring.hometask.service.impl;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 import ua.epam.spring.hometask.domain.Event;
 import ua.epam.spring.hometask.domain.User;
 import ua.epam.spring.hometask.service.DiscountService;
+import ua.epam.spring.hometask.util.DiscountStrategy;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.annotation.Resource;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Service
 public class DiscountServiceImpl implements DiscountService {
 
-    private List<DiscountService> discountServiceList;
 
-    public DiscountServiceImpl(List<DiscountService> discountServiceList)
+    @Resource
+    @Qualifier("discountServiceList")
+    private List<DiscountStrategy> discountServiceList;
+
+    /*public DiscountServiceImpl(List<DiscountService> discountServiceList)
     {
 
         this.discountServiceList = discountServiceList;
 
-    }
+    }*/
 
     @Override
     public byte getDiscount(@Nullable User user, @Nonnull Event event, @Nonnull LocalDateTime airDateTime, long numberOfTickets) {
 
         byte discountMax = 0;
 
-        for(DiscountService discountService : discountServiceList)
+        for(DiscountStrategy discountService : discountServiceList)
         {
            byte discount = discountService.getDiscount(user, event, airDateTime, numberOfTickets);
            if(discount > discountMax)

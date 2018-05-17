@@ -1,13 +1,17 @@
 package ua.epam.spring.hometask.dao.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ua.epam.spring.hometask.dao.UserDao;
 import ua.epam.spring.hometask.domain.User;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+@Component
 public class UserDaoImplimentation implements UserDao {
 
+    @Autowired
     private static Set<User> users = new HashSet<>();
 
 

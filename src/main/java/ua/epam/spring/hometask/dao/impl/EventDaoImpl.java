@@ -1,11 +1,13 @@
 package ua.epam.spring.hometask.dao.impl;
 
+import org.springframework.stereotype.Component;
 import ua.epam.spring.hometask.dao.EventDao;
 import ua.epam.spring.hometask.domain.Event;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+@Component
 public class EventDaoImpl implements EventDao{
 
     private static Set<Event> events = new HashSet<>();

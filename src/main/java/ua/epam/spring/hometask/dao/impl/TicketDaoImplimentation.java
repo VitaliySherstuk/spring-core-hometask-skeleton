@@ -1,3 +1,4 @@
+/*
 package ua.epam.spring.hometask.dao.impl;
 
 import org.springframework.stereotype.Component;
@@ -52,3 +53,4 @@ public class TicketDaoImplimentation implements TicketDao {
         return tickets;
     }
 }
+*/

@@ -31,13 +31,7 @@ public class BookingServiceImpl implements BookingService{
     @Qualifier("koefRaitingValue")
     private double koefRaiting;
 
-   /* public BookingServiceImpl(UserDao userDao, TicketDao ticketDao, double koefVip, double koefRaiting)
-    {
-        this.userDao = userDao;
-        this.ticketDao = ticketDao;
-        this.koefVip = koefVip;
-        this.koefRaiting = koefRaiting;
-    }*/
+
 
     @Override
     public double getTicketsPrice(@Nonnull Event event, @Nonnull LocalDateTime dateTime, @Nullable User user, @Nonnull Set<Long> seats) {
@@ -45,7 +39,6 @@ public class BookingServiceImpl implements BookingService{
         double regularPrise = event.getBasePrice();
         EventRating raiting = event.getRating();
         Auditorium auditorium = event.getAuditoriums().get(dateTime);
-
         double result = 0;
         for(Long seat : seats)
         {
@@ -67,7 +60,7 @@ public class BookingServiceImpl implements BookingService{
             if(user!=null)
             {
                 user.getTickets().add(ticket);
-                userDao.add(user);
+                //userDao.add(user);
             }
         }
     }

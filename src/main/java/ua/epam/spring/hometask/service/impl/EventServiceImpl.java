@@ -15,11 +15,12 @@ public class EventServiceImpl implements EventService{
     @Autowired
     private EventDao eventDao;
 
-   /* public EventServiceImpl(EventDao eventDao)
+/* public EventServiceImpl(EventDao eventDao)
     {
 
         this.eventDao = eventDao;
     }*/
+
 
     @Nullable
     @Override

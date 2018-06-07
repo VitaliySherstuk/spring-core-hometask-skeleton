@@ -1,7 +1,10 @@
 package ua.epam.spring.hometask.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import ua.epam.spring.hometask.dao.EventDao;
+import ua.epam.spring.hometask.dao.UserDao;
 import ua.epam.spring.hometask.domain.Event;
 import ua.epam.spring.hometask.domain.User;
 import ua.epam.spring.hometask.service.DiscountService;
@@ -21,12 +24,6 @@ public class DiscountServiceImpl implements DiscountService {
     @Qualifier("discountServiceList")
     private List<DiscountStrategy> discountServiceList;
 
-    /*public DiscountServiceImpl(List<DiscountService> discountServiceList)
-    {
-
-        this.discountServiceList = discountServiceList;
-
-    }*/
 
     @Override
     public byte getDiscount(@Nullable User user, @Nonnull Event event, @Nonnull LocalDateTime airDateTime, long numberOfTickets) {

@@ -1,3 +1,4 @@
+/*
 package ua.epam.spring.hometask.dao.impl;
 
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -57,3 +58,4 @@ public class AuditoriumDaoImplementation implements AuditoriumDao {
         return auditoriums;
     }
 }
+*/

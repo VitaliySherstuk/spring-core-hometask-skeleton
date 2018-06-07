@@ -1,3 +1,4 @@
+/*
 package ua.epam.spring.hometask.dao.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,3 +55,4 @@ public class UserDaoImplimentation implements UserDao {
         return null;
     }
 }
+*/

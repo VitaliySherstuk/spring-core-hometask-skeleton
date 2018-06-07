@@ -1,3 +1,4 @@
+/*
 package ua.epam.spring.hometask.dao.impl;
 
 import org.springframework.stereotype.Component;
@@ -53,3 +54,4 @@ public class EventDaoImpl implements EventDao{
         return events;
     }
 }
+*/

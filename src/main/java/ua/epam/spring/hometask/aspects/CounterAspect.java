@@ -6,21 +6,20 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import ua.epam.spring.hometask.dao.DB.CounterDB;
 import ua.epam.spring.hometask.domain.Event;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Component
 @Aspect
 public class CounterAspect {
 
-    private Map<String, Integer> counterGetEventName = new HashMap<>();
-    private Map<Event, Integer> counterPricesQueringMap = new HashMap<>();
-    private Map<String, Integer> counterTicketBookingMap = new HashMap<>();
 
-    @Pointcut("execution(* ua.epam.spring.hometask.dao.impl.EventDaoImpl.getByName(..))")
+    @Autowired
+    private CounterDB counterDB;
+
+    @Pointcut("execution(* ua.epam.spring.hometask.dao.EventDao.getByName(..))")
     private void getByName(){}
 
     @Pointcut("execution(* *.getTicketsPrice(..))")
@@ -33,35 +32,24 @@ public class CounterAspect {
     public void counterForGetNameEvent(JoinPoint joinPoint)
     {
         String eventName = (String) joinPoint.getArgs()[0];
-        counterGetEventName.put(eventName, counterGetEventName.get(eventName)==null ? 1 : counterGetEventName.get(eventName)+1);
+        Long count = counterDB.getCountByName(eventName);
+        counterDB.setEventByName(eventName, count.equals(0L) ? 1L : count+1L);
     }
 
     @After("getTicketsPrice()")
     public void counterPricesQuering(JoinPoint joinPoint)
     {
         Event event = (Event)joinPoint.getArgs()[0];
-        counterPricesQueringMap.put(event, counterPricesQueringMap.get(event)==null ? 1: counterPricesQueringMap.get(event)+1);
+        Long count = counterDB.getCountPrices(event.getName());
+        counterDB.setPrices(event.getName(), count.equals(0L) ? 1L : count+1L);
     }
 
     @After("bookTickets()")
     public void  counterBookingTickets()
     {
-        counterTicketBookingMap.put("counter", counterTicketBookingMap.get("counter")==null ? 1: counterTicketBookingMap.get("counter")+1);
-    }
+        Long count = counterDB.getCountBooking();
+        counterDB.setBooking(count.equals(0L) ? 1L : count+1L);
+   }
 
-    public Map<String, Integer> getMapCounterEvent()
-    {
-        return counterGetEventName;
-    }
-
-    public Map<Event, Integer> getMapCounterPricesQuering()
-    {
-        return counterPricesQueringMap;
-    }
-
-    public Map<String, Integer> getCounterTicketBooking()
-    {
-        return counterTicketBookingMap;
-    }
 }
 

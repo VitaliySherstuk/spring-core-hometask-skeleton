@@ -151,24 +151,27 @@ public class Event extends DomainObject {
         return airDates;
     }
 
-    public void setAirDates(NavigableSet<LocalDateTime> airDates) {
+    public Event setAirDates(NavigableSet<LocalDateTime> airDates) {
         this.airDates = airDates;
+        return this;
     }
 
     public double getBasePrice() {
         return basePrice;
     }
 
-    public void setBasePrice(double basePrice) {
+    public Event setBasePrice(double basePrice) {
         this.basePrice = basePrice;
+        return this;
     }
 
     public EventRating getRating() {
         return rating;
     }
 
-    public void setRating(EventRating rating) {
+    public Event setRating(EventRating rating) {
         this.rating = rating;
+        return this;
     }
 
     public NavigableMap<LocalDateTime, Auditorium> getAuditoriums() {

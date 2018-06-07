@@ -17,7 +17,7 @@ import java.util.Set;
 @EnableAspectJAutoProxy
 @ComponentScan("ua.epam.spring.hometask")
 @PropertySource("file:src/main/resources/properties.properties")
-/*@Import({DBconfig.class})*/
+@Import({DBConfig.class})
 public class AppConfig {
 
     @Value("${amountTicketDiscount}")
